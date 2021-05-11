@@ -13,7 +13,6 @@ const App = () => {
   return (
     <IntlProvider
       locale={locale}
-      defaultLocale="en"
       messages={messages[locale] as Record<string, string>}
     >
       <TestApp />

@@ -3,7 +3,6 @@ import React, { PropsWithChildren, useContext, useMemo } from 'react';
 interface IntlContext {
   locale: string;
   messages: Record<string, string | string[]>;
-  defaultLocale: string;
   formatMessage(
     id: { id: string },
     variables?: { [key: string]: string | number }
@@ -16,7 +15,6 @@ interface IntlContext {
 
 interface IntlProviderProps {
   locale: string;
-  defaultLocale: string;
   messages: Record<string, string>;
 }
 
@@ -26,7 +24,6 @@ export function IntlProvider({
   children,
   locale,
   messages,
-  defaultLocale,
 }: PropsWithChildren<IntlProviderProps>) {
   const value = useMemo(() => {
     function formatMessage(
@@ -84,10 +81,9 @@ export function IntlProvider({
     return {
       locale,
       messages,
-      defaultLocale,
       formatMessage,
     };
-  }, [locale, messages, defaultLocale]);
+  }, [locale, messages]);
   return <IntlContext.Provider value={value}>{children}</IntlContext.Provider>;
 }
 
