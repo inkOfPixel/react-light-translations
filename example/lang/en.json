@@ -1,0 +1,5 @@
+{
+  "test": "this is a test message",
+  "testWithVariable": "this is a test message with variables, {variable}",
+  "testWithElementVariable": "this is a test message with react element, {variable}"
+}
