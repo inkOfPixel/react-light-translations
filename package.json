@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -8,7 +8,11 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inkOfPixel/react-light-translations.git"
   },
   "scripts": {
     "dev": "tsdx watch",
@@ -33,19 +37,9 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-light-translations",
+  "name": "@inkofpixel/react-light-translations",
   "author": "@forgng",
   "module": "dist/react-light-translations.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/react-light-translations.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/react-light-translations.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
     "@types/react": "^17.0.5",

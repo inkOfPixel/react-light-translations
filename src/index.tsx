@@ -28,66 +28,66 @@ export function IntlProvider({
   messages,
   defaultLocale,
 }: PropsWithChildren<IntlProviderProps>) {
-  function formatMessage(
-    id: { id: string },
-    variables?: { [key: string]: string | number }
-  ): string;
+  const value = useMemo(() => {
+    function formatMessage(
+      id: { id: string },
+      variables?: { [key: string]: string | number }
+    ): string;
 
-  function formatMessage(
-    id: { id: string },
-    variables?: { [key: string]: React.ReactNode }
-  ): JSX.Element[];
+    function formatMessage(
+      id: { id: string },
+      variables?: { [key: string]: React.ReactNode }
+    ): JSX.Element[];
 
-  function formatMessage(
-    id: { id: string },
-    variables?: { [key: string]: React.ReactNode }
-  ): string | JSX.Element[] {
-    if (!messages[id.id]) {
-      console.error('missing locale data for ', id);
-      return id.id;
-    }
-    let translatedStringSplitted = messages[id.id]
-      .split(/({[^}]+})/g)
-      .filter(el => el);
-
-    let canBeStringified = true;
-    const translatedStringSplittedWithVariablesReplaced = translatedStringSplitted.map(
-      (part, idx) => {
-        const matches = part.match(/\{(.*?)\}/);
-        if (matches) {
-          const variableToReplace = variables?.[matches[1]];
-          if (!variableToReplace) {
-            return '';
-          }
-          if (
-            typeof variableToReplace === 'string' ||
-            typeof variableToReplace === 'number'
-          ) {
-            return variableToReplace;
-          }
-          canBeStringified = false;
-          return <React.Fragment key={idx}>{variableToReplace}</React.Fragment>;
-        }
-        return part;
+    function formatMessage(
+      id: { id: string },
+      variables?: { [key: string]: React.ReactNode }
+    ): string | JSX.Element[] {
+      if (!messages[id.id]) {
+        console.error('missing locale data for ', id);
+        return id.id;
       }
-    );
+      let translatedStringSplitted = messages[id.id]
+        .split(/({[^}]+})/g)
+        .filter(el => el);
 
-    if (canBeStringified) {
-      return translatedStringSplittedWithVariablesReplaced.join(' ');
+      let canBeStringified = true;
+      const translatedStringSplittedWithVariablesReplaced = translatedStringSplitted.map(
+        (part, idx) => {
+          const matches = part.match(/\{(.*?)\}/);
+          if (matches) {
+            const variableToReplace = variables?.[matches[1]];
+            if (!variableToReplace) {
+              return '';
+            }
+            if (
+              typeof variableToReplace === 'string' ||
+              typeof variableToReplace === 'number'
+            ) {
+              return variableToReplace;
+            }
+            canBeStringified = false;
+            return (
+              <React.Fragment key={idx}>{variableToReplace}</React.Fragment>
+            );
+          }
+          return part;
+        }
+      );
+
+      if (canBeStringified) {
+        return translatedStringSplittedWithVariablesReplaced.join(' ');
+      }
+
+      return translatedStringSplittedWithVariablesReplaced as JSX.Element[];
     }
-
-    return translatedStringSplittedWithVariablesReplaced as JSX.Element[];
-  }
-
-  const value = useMemo(
-    () => ({
+    return {
       locale,
       messages,
       defaultLocale,
       formatMessage,
-    }),
-    [locale, messages]
-  );
+    };
+  }, [locale, messages, defaultLocale]);
   return <IntlContext.Provider value={value}>{children}</IntlContext.Provider>;
 }
 
