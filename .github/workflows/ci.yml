@@ -7,7 +7,7 @@ on:
       - '.storybook/**'
       - '.husky/**'
     branches:
-      - 'main'
+      - 'master'
 jobs:
   build:
     runs-on: ubuntu-20.04
