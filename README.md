@@ -2,13 +2,13 @@
 Heavily inspired by [react-intl](https://formatjs.io/docs/react-intl/)
 
 ```bash
-yarn add react-light-tranlations
+yarn add @inkofpixel/react-light-translations
 ```
 
 ```tsx
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { IntlProvider, useIntl } from 'react-light-translations';
+import { IntlProvider, useIntl } from '@inkofpixel/react-light-translations';
 
 const messages = {
   it: require('./lang/it.json'),
